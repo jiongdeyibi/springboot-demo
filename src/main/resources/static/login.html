@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <script src="./js/jquery.js"></script>
+    <!--<link href="./css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="./css/dframe-login.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <p>数据平台 - 风险驾驶舱</p>
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <form role="form" action="./doLogin"  method="POST">
+                <div class="form-group-username">
+                    <input type="text" name="username" maxLength="40" class="form-control" id="username" placeholder="用户名"/>
+                </div>
+                <div class="form-group-password">
+                    <input type="password" name="password" maxLength="40" class="form-control" id="password" placeholder="密码" />
+                </div>
+                <button type="submit" class="btn btn-default" onclick="rempw()">登录系统</button>
+                <div class="fs-login-check">
+                    <input type="checkbox" class="fs-login-checkbox" id="remember-pw"/>
+                    <span>记住帐号密码</span>
+                </div>
+                <div class="fs-login-msg">
+                    <c:out value="${message}"></c:out>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<br/>
+<script type="text/javascript">
+    function rempw() {
+        var storage = window.localStorage;
+        if($("#remember-pw").is(':checked')){
+            //存储到loaclStage
+            storage["username"] = $("#username").val();
+            storage["password"] = $("#password").val();
+            storage["remember-pw"] =  "yes";
+        }else{
+            storage["username"] = "";
+            storage["password"] = "";
+            storage["remember-pw"] =  "no";
+        }
+    }
+
+    //判断是否存在过用户
+    var storage = window.localStorage;
+    if("yes" == storage["remember-pw"]){
+        $("#remember-pw").attr("checked", true);
+        $("#username").val(storage["username"]);
+        $("#password").val(storage["password"]);
+    }
+</script>
+</body>
+</html>
